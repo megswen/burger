@@ -5,8 +5,7 @@ var burger = {
   // Selecting all records from burgers table
   selectAll: function(cb) {
     orm.selectAll("burgers", function(res) {
-      console.log(res);
-      //cb(res);
+      cb(res);
     });
   }
 

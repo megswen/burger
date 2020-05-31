@@ -3,11 +3,17 @@ var router = express.Router();
 var burger = require("../models/burger.js");
 
 // Create the router for the app, and export the router at the end of your file.
-// router.get("/", function(req, res) {
-//     res.redirect("/burgers");
-// });
+router.get("/", function(req, res) {
+    res.redirect("/burgers");
+});
 
-// router.get("/", function(req, res) {
+router.get("/burgers", function(req, res) {
+    burger.selectAll(function(data) {
+        res.render("index", {burgers: data});
+    })
+});
+
+// router.get("/*", function(req, res) {
 //     burger.selectAll(function(data) {
 //         var hbsObject = {
 //             burgers: data
