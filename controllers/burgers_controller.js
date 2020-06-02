@@ -18,40 +18,15 @@ router.post("/api/burgers", function(req, res) {
 router.put("/api/burgers/:id", function(req, res) {
     var id = req.params.id;
     burger.devourBurger(id, function() {
-        //console.log("Done");
         res.send();
     });
 });
 
 router.delete("/api/burgers/:id", function(req, res) {
     var id = req.params.id;
-    //console.log("BURGER ID " + id);
     burger.deleteBurger(id, function() {
-        //console.log("BURGER DELETED");
         res.send();
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-// router.get("/*", function(req, res) {
-//     burger.selectAll(function(data) {
-//         var hbsObject = {
-//             burgers: data
-//         };
-//         console.log(hbsObject);
-//         //res.render("index", hbsObject);
-//     });
-// });
-
-// More routes down here
 
 module.exports = router;

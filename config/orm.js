@@ -24,8 +24,6 @@ function objToSql(ob) {
       if (typeof value === "string" && value.indexOf(" ") >= 0) {
         value = "'" + value + "'";
       }
-      // e.g. {name: 'Lana Del Grey'} => ["name='Lana Del Grey'"]
-      // e.g. {sleepy: true} => ["sleepy=true"]
       arr.push(key + "=" + value);
     }
   }
@@ -44,23 +42,23 @@ var orm = {
     });
   },
   insertOne: function(table, cols, vals, cb) {
-      var queryString = "INSERT INTO " + table;
-      queryString += " (";
-      queryString += cols.toString();
-      queryString += ") ";
-      queryString += "VALUES (";
-      queryString += printQuestionMarks(vals.length);
-      queryString += ") ";
+    var queryString = "INSERT INTO " + table;
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
 
-      //console.log(queryString);
+    //console.log(queryString);
 
-      connection.query(queryString, vals, function(err, result) {
-          if (err) {
-              throw err;
-          }
-          //console.log(result);
-          cb(result);
-      });
+    connection.query(queryString, vals, function(err, result) {
+      if (err) {
+          throw err;
+      }
+      //console.log(result);
+      cb(result);
+    });
   },
   updateOne: function(table, objColVals, condition, cb) {
     var queryString = "UPDATE " + table;
@@ -86,17 +84,16 @@ var orm = {
     queryString += " WHERE ";
     queryString += condition;
 
-    //console.log("QUERY STRING: " + queryString);
+    //console.log(queryString);
 
     connection.query(queryString, function(err, result) {
       if (err) {
         throw err;
       }
-      //console.log("QUERY RESULT: ", result);
+      //console.log(result);
       cb(result);
     });
   }
 };
 
-// Export the ORM object in module.exports
 module.exports = orm;
