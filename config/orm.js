@@ -39,7 +39,7 @@ var orm = {
     var queryString = "SELECT * FROM " + table + ";";
     connection.query(queryString, function(err, result) {
       if (err) throw err;
-      console.log(result);
+      //console.log(result);
       cb(result);
     });
   },
@@ -52,33 +52,49 @@ var orm = {
       queryString += printQuestionMarks(vals.length);
       queryString += ") ";
 
-      console.log(queryString);
+      //console.log(queryString);
 
       connection.query(queryString, vals, function(err, result) {
           if (err) {
               throw err;
           }
-          console.log(result);
+          //console.log(result);
           cb(result);
       });
   },
   updateOne: function(table, objColVals, condition, cb) {
-      var queryString = "UPDATE " + table;
+    var queryString = "UPDATE " + table;
 
-      queryString += " SET ";
-      queryString += objToSql(objColVals);
-      queryString += " WHERE ";
-      queryString += condition;
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
+    queryString += " WHERE ";
+    queryString += condition;
 
-      console.log(queryString);
+    //console.log(queryString);
 
-      connection.query(queryString, function(err, result) {
-          if (err) {
-              throw err;
-          }
-          console.log(result);
-          cb(result);
-      });
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
+      //console.log(result);
+      cb(result);
+    });
+  },
+  deleteOne: function(table, condition, cb) {
+    var queryString = "DELETE FROM " + table;
+
+    queryString += " WHERE ";
+    queryString += condition;
+
+    //console.log("QUERY STRING: " + queryString);
+
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
+      //console.log("QUERY RESULT: ", result);
+      cb(result);
+    });
   }
 };
 
